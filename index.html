@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NeuroLab Interactivo</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="bg-shape bg-shape-a"></div>
+    <div class="bg-shape bg-shape-b"></div>
+
+    <header class="hero">
+      <p class="badge">NyPE - Modulo Cerebro</p>
+      <h1>NeuroLab Interactivo</h1>
+      <p>
+        Simulador rapido de neurona biologica: potencial de membrana, propagacion por axon y
+        sinapsis quimica modelada en segundo plano.
+      </p>
+    </header>
+
+    <main class="layout">
+      <section class="card card-main">
+        <h2>Potencial de membrana</h2>
+        <div class="controls">
+          <label>
+            Entrada EPSP (+ mV por paso)
+            <input id="epspInput" type="range" min="0" max="10" step="0.1" value="4.5" />
+            <span id="epspValue">4.5</span>
+          </label>
+          <label>
+            Entrada IPSP (- mV por paso)
+            <input id="ipspInput" type="range" min="0" max="10" step="0.1" value="2.0" />
+            <span id="ipspValue">2.0</span>
+          </label>
+        </div>
+
+        <div class="status-grid vm-status-grid">
+          <div class="stat">
+            <span>Vm actual</span>
+            <strong id="vmValue">-70.0 mV</strong>
+          </div>
+          <div class="stat">
+            <span>Umbral</span>
+            <strong>-55.0 mV</strong>
+          </div>
+          <div class="stat">
+            <span>Estado</span>
+            <strong id="stateValue">reposo</strong>
+          </div>
+        </div>
+
+        <canvas id="vmChart" width="760" height="220" aria-label="Grafico de potencial"></canvas>
+
+        <div class="buttons">
+          <button id="stepBtn">Simular paso</button>
+          <button id="autoBtn">Auto OFF</button>
+          <button id="resetBtn" class="ghost">Reset</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Propagacion por axon</h2>
+        <button id="myelinToggleBtn" class="ghost active">Mielina activada</button>
+
+        <div class="axon-track" id="axonTrack">
+          <div class="node soma">Soma</div>
+          <div class="node terminal">Terminal</div>
+          <div class="pulse" id="axonPulse"></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Glosario rapido de parametros</h2>
+        <div class="glossary">
+          <article>
+            <h3>EPSP</h3>
+            <p>Potencial postsinaptico excitatorio. Empuja el Vm hacia el umbral.</p>
+          </article>
+          <article>
+            <h3>IPSP</h3>
+            <p>Potencial postsinaptico inhibitorio. Aleja el Vm del umbral.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Conceptos: reposo, EPSP/IPSP, umbral, potencial de accion, mielina y sinapsis.</p>
+    </footer>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
