@@ -1,9 +1,9 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NeuroLab Interactivo</title>
+    <title>Simulador de potencial de acci&oacute;n</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
@@ -11,11 +11,12 @@
     <div class="bg-shape bg-shape-b"></div>
 
     <header class="hero">
-      <p class="badge">NyPE - Modulo Cerebro</p>
-      <h1>NeuroLab Interactivo</h1>
-      <p>
-        Simulador rapido de neurona biologica: potencial de membrana, propagacion por axon y
-        sinapsis quimica modelada en segundo plano.
+      <p class="badge">NyPE - M&oacute;dulo Cerebro</p>
+      <h1>Simulador de potencial de acci&oacute;n</h1>
+      <p class="hero-subtitle">
+        En esta app vas a poder simular cambios en el voltaje de la membrana y entender c&oacute;mo
+        se genera un potencial de acci&oacute;n. Baj&aacute; a la secci&oacute;n Actividades y empez&aacute; a pensar cada
+        punto.
       </p>
     </header>
 
@@ -24,20 +25,20 @@
         <h2>Potencial de membrana</h2>
         <div class="controls">
           <label>
-            Entrada EPSP (+ mV por paso)
-            <input id="epspInput" type="range" min="0" max="10" step="0.1" value="4.5" />
-            <span id="epspValue">4.5</span>
+            Input despolarizante (+ mV por paso)
+            <input id="depolInput" type="range" min="0" max="10" step="0.1" value="4.5" />
+            <span id="depolValue">4.5</span>
           </label>
           <label>
-            Entrada IPSP (- mV por paso)
-            <input id="ipspInput" type="range" min="0" max="10" step="0.1" value="2.0" />
-            <span id="ipspValue">2.0</span>
+            Input hiperpolarizante (- mV por paso)
+            <input id="hyperInput" type="range" min="0" max="10" step="0.1" value="2.0" />
+            <span id="hyperValue">2.0</span>
           </label>
         </div>
 
         <div class="status-grid vm-status-grid">
           <div class="stat">
-            <span>Vm actual</span>
+            <span class="vm-label">Vm ACTUAL</span>
             <strong id="vmValue">-70.0 mV</strong>
           </div>
           <div class="stat">
@@ -50,18 +51,31 @@
           </div>
         </div>
 
-        <canvas id="vmChart" width="760" height="220" aria-label="Grafico de potencial"></canvas>
+        <canvas id="vmChart" width="760" height="220" aria-label="Gr&aacute;fico de potencial"></canvas>
 
-        <div class="buttons">
-          <button id="stepBtn">Simular paso</button>
-          <button id="autoBtn">Auto OFF</button>
+        <div class="buttons controls-inline">
+          <div class="speed-control" role="group" aria-label="Control de velocidad">
+            <span>Velocidad baja</span>
+            <label class="switch" for="speedSwitch">
+              <input id="speedSwitch" type="checkbox" />
+              <span class="slider"></span>
+            </label>
+            <span>Velocidad alta</span>
+          </div>
           <button id="resetBtn" class="ghost">Reset</button>
         </div>
       </section>
 
       <section class="card">
-        <h2>Propagacion por axon</h2>
-        <button id="myelinToggleBtn" class="ghost active">Mielina activada</button>
+        <h2>Propagaci&oacute;n por ax&oacute;n</h2>
+        <div class="speed-control" role="group" aria-label="Control de mielina">
+          <span>Mielina desactivada</span>
+          <label class="switch" for="myelinSwitch">
+            <input id="myelinSwitch" type="checkbox" checked />
+            <span class="slider"></span>
+          </label>
+          <span>Mielina activada</span>
+        </div>
 
         <div class="axon-track" id="axonTrack">
           <div class="node soma">Soma</div>
@@ -71,24 +85,69 @@
       </section>
 
       <section class="card">
-        <h2>Glosario rapido de parametros</h2>
+        <h2>Glosario</h2>
         <div class="glossary">
           <article>
-            <h3>EPSP</h3>
-            <p>Potencial postsinaptico excitatorio. Empuja el Vm hacia el umbral.</p>
+            <h3>Soma</h3>
+            <p>Cuerpo celular de la neurona, donde se integran los inputs que llegan.</p>
           </article>
           <article>
-            <h3>IPSP</h3>
-            <p>Potencial postsinaptico inhibitorio. Aleja el Vm del umbral.</p>
+            <h3>Terminal</h3>
+            <p>Extremo del axón donde llega la señal y se comunica a otras neuronas.</p>
+          </article>
+          <article>
+            <h3>Input hiperpolarizante</h3>
+            <p>Aleja el voltaje de la membrana (Vm) del umbral. Input inhibitorio.</p>
+          </article>
+          <article>
+            <h3>Input despolarizante</h3>
+            <p>Empuja el voltaje de la membrana (Vm) hacia el umbral. Input excitatorio.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="card full-width">
+        <h2>Actividades</h2>
+        <div class="activities">
+          <article class="activity">
+            <h3>Escenario sin disparo</h3>
+            <p>
+              Carga input despolarizante 2.5 e input hiperpolarizante 1.3, activa la velocidad
+              y observa que el Vm sube pero no cruza el umbral. Pregunta: qu&eacute; balance entre
+              excitaci&oacute;n e inhibici&oacute;n explica esto?
+            </p>
+            <button id="presetNoSpikeBtn" class="ghost">Cargar escenario</button>
+          </article>
+          <article class="activity">
+            <h3>Escenario con disparo</h3>
+            <p>
+              Carga input despolarizante 5.0 e input hiperpolarizante 0.4 y mira los
+              potenciales de acci&oacute;n repetidos. Pregunta: por qu&eacute; no aumenta indefinidamente
+              la frecuencia?
+            </p>
+            <button id="presetSpikeBtn" class="ghost">Cargar escenario</button>
+          </article>
+          <article class="activity">
+            <h3>Compara mielina ON/OFF</h3>
+            <p>
+              Con un escenario que dispare, alterna el switch de mielina. Pregunta: qu&eacute; cambia
+              y qu&eacute; no cambia entre forma del spike y velocidad de propagaci&oacute;n?
+            </p>
+          </article>
+          <article class="activity">
+            <h3>Pregunta conceptual</h3>
+            <p>&iquest;De qu&eacute; depende que los inputs sean excitatorios o inhibitorios?</p>
           </article>
         </div>
       </section>
     </main>
 
     <footer class="footer">
-      <p>Conceptos: reposo, EPSP/IPSP, umbral, potencial de accion, mielina y sinapsis.</p>
+      <p class="credit">Realizado por Guillermo Solovey para NyPE (UTDT).</p>
     </footer>
 
     <script src="./app.js"></script>
   </body>
 </html>
+
+

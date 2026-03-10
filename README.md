@@ -1,13 +1,15 @@
-# NeuroLab Interactivo (MVP)
+# Simulador de potencial de accion (MVP)
 
 Web app educativa basada en la clase de NyPE sobre neuronas y cerebro.
 
 ## Incluye
-- Simulacion de potencial de membrana con integracion de `EPSP/IPSP`.
+- Simulacion de potencial de membrana con integracion de `input despolarizante` e `input hiperpolarizante`.
 - Parametros internos de dinamica neuronal modelados automaticamente.
 - Disparo por umbral (`todo o nada`) y periodo refractario.
 - Propagacion por axon con comparacion `con mielina / sin mielina`.
-- Glosario integrado de parametros: `EPSP`, `IPSP`.
+- Selector de velocidad `despacio / rapido`.
+- Glosario integrado de parametros.
+- Actividades con escenarios precargados.
 
 ## Como abrir
 1. Abrir `index.html` en un navegador moderno.
@@ -16,5 +18,5 @@ Web app educativa basada en la clase de NyPE sobre neuronas y cerebro.
    - o extension "Live Server" en VS Code.
 
 ## Sugerencias de uso en clase
-- Mostrar como cambia `Vm` al variar EPSP e IPSP.
+- Mostrar como cambia `Vm` al variar inputs despolarizantes e hiperpolarizantes.
 - Activar y desactivar mielina para ver impacto en velocidad.
